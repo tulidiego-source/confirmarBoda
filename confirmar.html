@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmar asistencia | Bea & Rubén</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <section class="section rsvp">
+      <h2>Confirma tu asistencia</h2>
+      <p class="rsvp__deadline">Antes del 1 de agosto de 2026</p>
+      <form id="rsvp-form" class="rsvp__form">
+        <label>
+          Nombre completo
+          <input type="text" name="nombre" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Teléfono
+          <input type="tel" name="telefono" />
+        </label>
+        <fieldset>
+          <legend>¿Vendrás?</legend>
+          <label class="radio"><input type="radio" name="asistencia" value="si" required /> Sí, allí estaré</label>
+          <label class="radio"><input type="radio" name="asistencia" value="no" /> No podré asistir</label>
+        </fieldset>
+        <label>
+          Número de acompañantes
+          <input type="number" name="acompanantes" min="0" max="5" value="0" />
+        </label>
+        <label>
+          Alergias o intolerancias alimentarias
+          <textarea name="alergias" rows="3"></textarea>
+        </label>
+        <label>
+          Mensaje para los novios (opcional)
+          <textarea name="mensaje" rows="3"></textarea>
+        </label>
+        <button type="submit" class="btn-primary">Enviar confirmación</button>
+        <p id="rsvp-status" class="rsvp__status" hidden></p>
+      </form>
+    </section>
+  </main>
+  <script>
+    const rsvpForm = document.getElementById('rsvp-form');
+    const rsvpStatus = document.getElementById('rsvp-status');
+    rsvpForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(rsvpForm).entries());
+      rsvpStatus.hidden = false;
+      rsvpStatus.textContent = 'Enviando…';
+      try {
+        const res = await fetch('https://formspree.io/f/mzdwrzkr', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('Error al enviar');
+        rsvpStatus.textContent = '¡Gracias! Hemos recibido tu confirmación.';
+        rsvpForm.reset();
+      } catch (err) {
+        rsvpStatus.textContent = 'Hubo un problema al enviar. Inténtalo de nuevo.';
+      }
+    });
+  </script>
+</body>
+</html>

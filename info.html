@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Información Boda | Bea & Rubén</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <p class="eyebrow light">NOS CASAMOS</p>
+        <h1 class="couple light">Bea <span>&amp;</span> Rubén</h1>
+        <p class="date light">12 · Septiembre · 2026</p>
+      </div>
+    </section>
+    <section class="section countdown">
+      <h2>Cuenta atrás</h2>
+      <div id="countdown" class="countdown__grid">
+        <div><span id="cd-days">0</span><small>Días</small></div>
+        <div><span id="cd-hours">0</span><small>Horas</small></div>
+        <div><span id="cd-mins">0</span><small>Minutos</small></div>
+        <div><span id="cd-secs">0</span><small>Segundos</small></div>
+      </div>
+    </section>
+    <section class="section story">
+      <h2>Nuestra historia</h2>
+      <p>Después de muchos momentos juntos, queremos compartir contigo el día más especial de nuestra vida. Gracias por acompañarnos.</p>
+    </section>
+    <section class="section events">
+      <h2>El gran día</h2>
+      <div class="events__grid">
+        <article class="event-card">
+          <h3>Ceremonia</h3>
+          <p class="event-card__time">17:00 h</p>
+          <p>Iglesia de San Sebastián</p>
+          <p>Alcalá de Guadaíra (Sevilla)</p>
+          <a class="btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Iglesia+de+San+Sebastián+Alcalá+de+Guadaíra">Cómo llegar</a>
+        </article>
+        <article class="event-card">
+          <h3>Banquete</h3>
+          <p class="event-card__time">19:30 h</p>
+          <p>Hotel Oromana</p>
+          <p>Avda. de Portugal, s/n — Alcalá de Guadaíra (Sevilla)</p>
+          <a class="btn-outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Hotel+Oromana+Alcalá+de+Guadaíra">Cómo llegar</a>
+        </article>
+      </div>
+    </section>
+    <section class="section accommodation">
+      <h2>Alojamiento</h2>
+      <p>Te recomendamos estos hoteles cercanos al lugar de la celebración:</p>
+      <ul class="hotels">
+        <li><strong>Hotel Central</strong> — a 5 min. del banquete. <a href="#" target="_blank" rel="noopener">Reservar</a></li>
+        <li><strong>Hotel Plaza</strong> — a 10 min. del banquete. <a href="#" target="_blank" rel="noopener">Reservar</a></li>
+      </ul>
+    </section>
+    <section class="section gift">
+      <h2>Regalo</h2>
+      <p>Si quieres tener un detalle con nosotros, puedes hacerlo en la siguiente cuenta:</p>
+      <p class="iban">ES00 0000 0000 0000 0000 0000</p>
+    </section>
+    <footer class="footer">
+      <p>Con cariño, Bea &amp; Rubén · 2026</p>
+    </footer>
+    <div style="text-align:center; margin:2.5rem 0 0;">
+      <a href="confirmar.html" class="btn-primary" style="font-size:1.1rem;">Confirmar asistencia</a>
+    </div>
+  </main>
+  <script>
+    // Cuenta atrás
+    const target = new Date('2026-09-12T17:00:00').getTime();
+    const $d = document.getElementById('cd-days');
+    const $h = document.getElementById('cd-hours');
+    const $m = document.getElementById('cd-mins');
+    const $s = document.getElementById('cd-secs');
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        $d.textContent = $h.textContent = $m.textContent = $s.textContent = '0';
+        clearInterval(window._cdTimer);
+        return;
+      }
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000) / 60000);
+      const secs  = Math.floor((diff % 60000) / 1000);
+      $d.textContent = days;
+      $h.textContent = String(hours).padStart(2, '0');
+      $m.textContent = String(mins).padStart(2, '0');
+      $s.textContent = String(secs).padStart(2, '0');
+    }
+    tick();
+    window._cdTimer = setInterval(tick, 1000);
+  </script>
+</body>
+</html>
