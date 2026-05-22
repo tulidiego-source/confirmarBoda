@@ -1,3 +1,43 @@
+/* Popup de confirmación */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s;
+}
+.modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px #0003;
+  max-width: 95vw;
+  width: 370px;
+  padding: 2.2em 1.5em 1.5em 1.5em;
+  text-align: center;
+  position: relative;
+  animation: modalIn .25s cubic-bezier(.7,1.7,.7,1) 1;
+}
+@keyframes modalIn {
+  from { transform: translateY(40px) scale(.95); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.modal-close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #888;
+  cursor: pointer;
+  transition: color .2s;
+}
+.modal-close:hover {
+  color: var(--accent);
+}
 /* Foto de los novios en hero */
 .pareja-foto-wrap {
   display: flex;

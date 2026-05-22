@@ -125,7 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
           await new Promise(r => setTimeout(r, 600));
           console.log('RSVP (sin endpoint configurado):', data);
         }
-        rsvpStatus.textContent = '¡Gracias! Hemos recibido tu confirmación.';
+        // Popup modal con resumen
+        let resumen = '<ul style="text-align:left;max-width:350px;margin:1.2em auto 0 auto;padding:0 1em;">';
+        for (const [k, v] of Object.entries(data)) {
+          if (v && v.trim() !== '') {
+            resumen += `<li><strong>${k.replace(/_/g,' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> ${v}</li>`;
+          }
+        }
+        resumen += '</ul>';
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+          <div class="modal">
+            <button class="modal-close" aria-label="Cerrar">&times;</button>
+            <span style="font-size:1.25em;color:#357a38;font-weight:600;">¡Confirmación enviada correctamente!</span><br>
+            <div style="margin-top:.7em;">Hemos recibido estos datos:</div>
+            ${resumen}
+          </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('.modal-close').onclick = () => modal.remove();
+        modal.onclick = e => { if (e.target === modal) modal.remove(); };
+        rsvpStatus.hidden = true;
         rsvpForm.reset();
       } catch (err) {
         rsvpStatus.textContent = 'Hubo un problema al enviar. Inténtalo de nuevo.';
