@@ -87,6 +87,12 @@
         document.body.appendChild(modal);
         function mostrarFotoFinal() {
           document.querySelector('.rsvp__form').style.display = 'none';
+          // Cambiar título y subtítulo
+          const section = document.querySelector('.section.rsvp');
+          const h2 = section.querySelector('h2');
+          if (h2) h2.textContent = 'Muchas Gracias';
+          const deadline = section.querySelector('.rsvp__deadline');
+          if (deadline) deadline.style.display = 'none';
           const final = document.createElement('div');
           final.className = 'rsvp-final-wrap';
           final.innerHTML = `
@@ -96,7 +102,7 @@
               <div style="font-size:1.1rem;color:#6b6b6b;">17 de Octubre</div>
             </div>
           `;
-          document.querySelector('.section.rsvp').appendChild(final);
+          section.appendChild(final);
         }
         modal.querySelector('.modal-close').onclick = () => { modal.remove(); mostrarFotoFinal(); };
         modal.onclick = e => { if (e.target === modal) { modal.remove(); mostrarFotoFinal(); } };
