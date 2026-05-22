@@ -280,6 +280,8 @@ p { margin: .4em 0; }
   margin: .3rem 0;
 }
 
+
+/* Botón flotante para confirmar asistencia */
 .btn-primary {
   margin-top: 1rem;
   padding: .9rem 1.6rem;
@@ -291,8 +293,26 @@ p { margin: .4em 0; }
   text-transform: uppercase;
   cursor: pointer;
   transition: background .2s;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100vw;
+  border-radius: 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 16px #0002;
 }
-.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary:hover {
+  background: var(--accent-dark);
+}
+
+@media (max-width: 480px) {
+  .btn-primary {
+    font-size: 1rem;
+    padding: 1.1rem 0;
+  }
+}
 
 .rsvp__status {
   margin-top: 1rem;
