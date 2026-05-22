@@ -3,7 +3,7 @@
    ========================================================= */
 const CONFIG = {
   // Fecha y hora de la boda (formato ISO local)
-  weddingDate: '2026-09-12T17:00:00',
+  weddingDate: '2026-10-17T17:00:00',
 
   // Códigos de invitación válidos (en minúsculas). Añade los que quieras.
   // NOTA: esto es solo una barrera ligera en el navegador, no seguridad real.
