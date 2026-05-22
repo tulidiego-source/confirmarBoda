@@ -41,6 +41,11 @@
           Mensaje para los novios (opcional)
           <textarea name="mensaje" rows="3"></textarea>
         </label>
+        <fieldset>
+          <legend>¿Necesitas autobús?</legend>
+          <label class="radio"><input type="radio" name="autobus" value="si" required /> Sí, quiero plaza de autobús</label>
+          <label class="radio"><input type="radio" name="autobus" value="no" /> No, no necesito autobús</label>
+        </fieldset>
         <button type="submit" class="btn-primary">Enviar confirmación</button>
         <p id="rsvp-status" class="rsvp__status" hidden></p>
       </form>
