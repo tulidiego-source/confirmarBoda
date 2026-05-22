@@ -1,3 +1,19 @@
+/* Foto de los novios en hero */
+.pareja-foto-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+.pareja-foto {
+  width: 210px;
+  max-width: 90vw;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  box-shadow: 0 4px 24px #0002;
+  background: var(--white);
+}
 :root {
   /* Importar fuente elegante Josefin Slab */
   @import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@700&display=swap');
