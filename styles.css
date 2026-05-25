@@ -193,7 +193,7 @@ p { margin: .4em 0; }
   color: var(--white);
   background:
     linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.45)),
-    url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    url("fotoPareja.jfif") center/cover no-repeat;
 }
 .hero__content { padding: 2rem; max-width: 900px; }
 
