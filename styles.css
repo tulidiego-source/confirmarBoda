@@ -197,6 +197,14 @@ p { margin: .4em 0; }
 }
 .hero__content { padding: 2rem; max-width: 900px; }
 
+@media (max-width: 600px) {
+  .hero {
+    background:
+      linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.45)),
+      url("fotoPareja.jfif") 50% 35%/120% auto no-repeat;
+  }
+}
+
 /* --- Sections --- */
 .section {
   max-width: 900px;
