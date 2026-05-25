@@ -25,14 +25,15 @@
           <input type="tel" name="telefono" />
         </label>
         <fieldset>
-          <legend>¿Vendrás?</legend>
+          <legend>¿Vendrás? <span style="color:#d32f2f;">*</span></legend>
           <label class="radio"><input type="radio" name="asistencia" value="si" required /> Sí, allí estaré</label>
           <label class="radio"><input type="radio" name="asistencia" value="no" /> No podré asistir</label>
         </fieldset>
-        <label>
-          Número de acompañantes
-          <input type="number" name="acompanantes" min="0" max="5" value="0" />
-        </label>
+        <fieldset>
+          <legend>¿Vendrás acompañado/a? <span style="color:#d32f2f;">*</span></legend>
+          <label class="radio"><input type="radio" name="acompanado" value="si" required /> Sí</label>
+          <label class="radio"><input type="radio" name="acompanado" value="no" /> No</label>
+        </fieldset>
         <label>
           Alergias o intolerancias alimentarias
           <textarea name="alergias" rows="3"></textarea>
@@ -42,7 +43,7 @@
           <textarea name="mensaje" rows="3"></textarea>
         </label>
         <fieldset>
-          <legend>¿Necesitas autobús?</legend>
+          <legend>¿Necesitas autobús? <span style="color:#d32f2f;">*</span></legend>
           <label class="radio"><input type="radio" name="autobus" value="si" required /> Sí, quiero plaza de autobús</label>
           <label class="radio"><input type="radio" name="autobus" value="no" /> No, no necesito autobús</label>
         </fieldset>
@@ -70,7 +71,9 @@
         let resumen = '<ul style="text-align:left;max-width:350px;margin:1.2em auto 0 auto;padding:0 1em;">';
         for (const [k, v] of Object.entries(data)) {
           if (v && v.trim() !== '') {
-            resumen += `<li><strong>${k.replace(/_/g,' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> ${v}</li>`;
+            let label = k;
+            if (k === 'acompanado') label = '¿Vendrás acompañado/a?';
+            resumen += `<li><strong>${label.replace(/_/g,' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> ${v}</li>`;
           }
         }
         resumen += '</ul>';
