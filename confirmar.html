@@ -10,8 +10,9 @@
   <main>
     <section class="section rsvp">
       <!-- Título y fecha eliminados por solicitud -->
-      <div style="width:100%;max-width:700px;margin:0 auto;box-shadow:0 4px 24px #0001;padding:0.5em 0.5em 1.5em 0.5em;background:#fff;border-radius:18px;">
+      <div id="google-form-wrap" tabindex="-1" style="width:100%;max-width:700px;margin:0 auto;box-shadow:0 4px 24px #0001;padding:0.5em 0.5em 1.5em 0.5em;background:#fff;border-radius:18px;outline:none;">
         <iframe 
+          id="google-form-iframe"
           src="https://docs.google.com/forms/d/e/1FAIpQLSdiR-f_6syd0gQWohXTf3g7wJqX2oPSJ8QzFQWInzUZAyvH7g/viewform?embedded=true"
           width="100%"
           height="2100"
@@ -25,67 +26,20 @@
     </section>
   </main>
   <script>
-    const rsvpForm = document.getElementById('rsvp-form');
-    const rsvpStatus = document.getElementById('rsvp-status');
-    rsvpForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(rsvpForm).entries());
-      rsvpStatus.hidden = false;
-      rsvpStatus.textContent = 'Enviando…';
-      try {
-        const res = await fetch('https://formspree.io/f/mzdwrzkr', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        if (!res.ok) throw new Error('Error al enviar');
-        // Popup modal con resumen
-        let resumen = '<ul style="text-align:left;max-width:350px;margin:1.2em auto 0 auto;padding:0 1em;">';
-        for (const [k, v] of Object.entries(data)) {
-          if (v && v.trim() !== '') {
-            let label = k;
-            if (k === 'acompanado') label = '¿Vendrás acompañado/a?';
-            resumen += `<li><strong>${label.replace(/_/g,' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong> ${v}</li>`;
-          }
-        }
-        resumen += '</ul>';
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.innerHTML = `
-          <div class="modal">
-            <button class="modal-close" aria-label="Cerrar">&times;</button>
-            <span style="font-size:1.25em;color:#357a38;font-weight:600;">¡Confirmación enviada correctamente!</span><br>
-            <div style="margin-top:.7em;">Hemos recibido estos datos:</div>
-            ${resumen}
-          </div>
-        `;
-        document.body.appendChild(modal);
-        function mostrarFotoFinal() {
-          document.querySelector('.rsvp__form').style.display = 'none';
-          // Cambiar título y subtítulo
-          const section = document.querySelector('.section.rsvp');
-          const h2 = section.querySelector('h2');
-          if (h2) h2.textContent = 'Muchas Gracias';
-          const deadline = section.querySelector('.rsvp__deadline');
-          if (deadline) deadline.style.display = 'none';
-          const final = document.createElement('div');
-          final.className = 'rsvp-final-wrap';
-          final.innerHTML = `
-            <div style="display:flex;flex-direction:column;align-items:center;gap:1.2em;margin-top:2.5em;">
-              <img src="fotoPareja.jfif" alt="Foto de los novios" style="width:160px;max-width:60vw;border-radius:50%;border:4px solid #fff;box-shadow:0 4px 24px #0002;object-fit:cover;background:#fff;">
-              <div style="font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:#8a6a3b;font-weight:600;">Bea & Rubén</div>
-              <div style="font-size:1.1rem;color:#6b6b6b;">17 de Octubre</div>
-            </div>
-          `;
-          section.appendChild(final);
-        }
-        modal.querySelector('.modal-close').onclick = () => { modal.remove(); mostrarFotoFinal(); };
-        modal.onclick = e => { if (e.target === modal) { modal.remove(); mostrarFotoFinal(); } };
-        rsvpStatus.hidden = true;
-        rsvpForm.reset();
-      } catch (err) {
-        rsvpStatus.textContent = 'Hubo un problema al enviar. Inténtalo de nuevo.';
+    const formWrap = document.getElementById('google-form-wrap');
+    const formIframe = document.getElementById('google-form-iframe');
+    let firstLoad = true;
+
+    formIframe.addEventListener('load', function () {
+      if (firstLoad) {
+        firstLoad = false;
+        return;
       }
+
+      // Tras enviar, Google Forms recarga el iframe con la vista de respuesta.
+      // Llevamos al usuario arriba del formulario para que vea el mensaje.
+      formWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      formWrap.focus({ preventScroll: true });
     });
   </script>
 </body>
